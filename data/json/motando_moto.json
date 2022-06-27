@@ -1,0 +1,33 @@
+[
+  {
+     "id": 1,
+     "marca": "Yamaha",
+     "popular": true,
+     "modelo": [
+         {"id": 1, "modelo": "Factor 150", "estilo": "Street", "versao": [{"id": 1, "versao": "Factor 150 E"},{"id": 2, "versao": "Factor 150 ED"}]},
+         {"id": 2, "modelo": "MT 03", "estilo": "Naked", "versao": [{"id": 1, "versao": "MT 03 - 321cc"}]},
+         {"id": 3, "modelo": "MT 09", "estilo": "Naked", "versao": [{"id": 1, "versao": "MT 09"}]},
+         {"id": 4, "modelo": "Neo 125", "estilo": "Street", "versao": [{"id": 1, "versao": "Neo 125 UBS"}]}
+     ]
+  },
+  {
+     "id": 2,
+     "marca": "Honda",
+     "popular": true,
+     "modelo": [
+         {"id": 1, "modelo": "ADV 150", "estilo": "Scooter", "versao": [{"id": 1, "versao": "ADV 150"}]},
+         {"id": 2, "modelo": "CB 1000", "estilo": "Naked", "versao": [{"id": 1, "versao": "CB 1000 Big One"}, {"id": 2, "versao": "CB 1000 R"}]},
+         {"id": 3, "modelo": "XRE 300", "estilo": "Trial", "versao": [{"id": 1, "versao": "XRE 300"}, {"id": 2, "versao": "XRE 300 Adventure"}]},
+         {"id": 4, "modelo": "CG 160", "estilo": "Street", "versao": [{"id": 1, "versao": "CG 160 Cargo"}, {"id": 2, "versao": "CG 160 FAN ESDI"}, {"id": 3, "versao": "CG 160 Start"}, {"id": 4, "versao": "CG 160 TITAN EX"}]}
+     ]
+  },
+  {
+     "id": 3,
+     "marca": "Agrale",
+     "popular": false,
+     "modelo": [
+         {"id": 1, "modelo": "Dakar 50", "estilo": "Street", "versao": [{"id": 1, "versao": "Dakar 50"}]},
+         {"id": 2, "modelo": "City 50", "estilo": "Street", "versao": [{"id": 2, "versao": "City 50"}]}         
+     ]
+  }
+]

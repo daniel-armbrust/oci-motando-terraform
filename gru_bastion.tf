@@ -5,7 +5,7 @@
 #---------------------------
 # BASTION
 #---------------------------
-
+/*
 module "gru_bastion" {
     source = "./modules/bastion/bastion"
     
@@ -19,7 +19,7 @@ module "gru_bastion" {
     client_cidr_list = [local.my_public_ip]    
 }
 
-/*
+
 module "gru_nginx-1-motando-prd_bastion_session" {
     source = "./modules/bastion/session"
 

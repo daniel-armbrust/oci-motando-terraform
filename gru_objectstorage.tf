@@ -7,9 +7,9 @@
 #---------------------------
 
 #-------------------
-# Bucket: Anuncio
+# Estado e Cidade
 #-------------------
-module "gru_bucket_motando_anuncio" {
+module "gru_bucket-estado_cidade_prd" {
     source = "./modules/objectstorage"
    
     providers = {
@@ -17,15 +17,31 @@ module "gru_bucket_motando_anuncio" {
     }
 
     compartment_id = module.cmp_motando.id
-    bucket_name = "motando_bucket_anuncio"
+    bucket_name = "motando_estado_cidade"
+    bucket_namespace = local.gru_objectstorage_ns        
+    access_type = "NoPublicAccess"   
+}
+
+#-------------------
+# Anuncio
+#-------------------
+module "gru_bucket-anuncio_prd" {
+    source = "./modules/objectstorage"
+   
+    providers = {
+       oci = oci.gru
+    }
+
+    compartment_id = module.cmp_motando.id
+    bucket_name = "motando_anuncio"
     bucket_namespace = local.gru_objectstorage_ns        
     access_type = "ObjectReadWithoutList"
 }
 
 #-------------------
-# Bucket: Usuario
+# Usuario
 #-------------------
-module "gru_bucket_motando_usuario" {
+module "gru_bucket-usuario_prd" {
     source = "./modules/objectstorage"
    
     providers = {
@@ -33,7 +49,7 @@ module "gru_bucket_motando_usuario" {
     }
 
     compartment_id = module.cmp_motando.id
-    bucket_name = "motando_bucket_usuario"
+    bucket_name = "motando_usuario"
     bucket_namespace = local.gru_objectstorage_ns        
     access_type = "ObjectReadWithoutList"
 }

@@ -71,6 +71,10 @@ cat <<EOF >/etc/nginx/nginx.conf
             server_name  motando.ocibook.com.br;
             root         /srv/motando-ocibook-com-br;
 
+            # TODO:
+            # gzip on;                                       ❶
+            # gzip_types text/plain application/xml; 
+
             location / {
             index index.html;
 

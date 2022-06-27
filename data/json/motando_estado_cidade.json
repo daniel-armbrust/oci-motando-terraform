@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "estado": "São Paulo",
+        "sigla": "SP",
+        "cidade": [
+            {"id": 1, "cidade": "Sorocaba"},
+            {"id": 2, "cidade": "Piedade"},
+            {"id": 3, "cidade": "Ibiúna"}
+        ]
+     },
+     {
+        "id": 2,
+        "estado": "Minas Gerais",
+        "sigla": "MG",
+        "cidade": [
+            {"id": 1, "cidade": "Belo Horizonte"},
+            {"id": 2, "cidade": "Uberlândia"},
+            {"id": 3, "cidade": "Ipatinga"}
+        ]
+     },
+     {
+        "id": 3,
+        "estado": "Espírito Santo",
+        "sigla": "ES",
+        "cidade": [
+            {"id": 1, "cidade": "Vila Velha"},
+            {"id": 2, "cidade": "Itapemirim"},
+            {"id": 3, "cidade": "Alegre"}
+        ]
+     }
+]
