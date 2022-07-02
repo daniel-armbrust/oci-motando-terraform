@@ -29,3 +29,23 @@ resource "null_resource" "gru_bucket_data-estado_cidade_prd" {
         module.gru_bucket-estado_cidade_prd
     ]  
 }
+
+resource "null_resource" "gru_oke-kubectl-setup_prd" {
+ 
+    provisioner "local-exec" {
+        command = "./add_kubectl_config.sh '${module.gru_oke-cluster_prd.id}'"
+        working_dir = "./scripts"
+        on_failure = fail
+    }     
+
+    provisioner "local-exec" {
+        when = destroy
+        command = "./del_kubectl_config.sh"
+        working_dir = "./scripts"
+        on_failure = fail
+    }     
+
+    depends_on = [       
+        module.gru_oke-cluster_prd
+    ]  
+}

@@ -38,7 +38,7 @@ module "gru_oke-cluster_prd" {
 }
 
 #-------------------
-# OKE Cluster
+# OKE Node Pool
 #-------------------
 
 module "gru_oke-nodepool-1_prd" {
