@@ -42,7 +42,7 @@ resource "null_resource" "gru_oke-kubectl-setup_prd" {
         when = destroy
         command = "./del_kubectl_config.sh"
         working_dir = "./scripts"
-        on_failure = fail
+        on_failure = continue
     }     
 
     depends_on = [       
