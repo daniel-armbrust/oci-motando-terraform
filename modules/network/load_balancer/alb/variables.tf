@@ -14,15 +14,37 @@ variable "display_name" {
     default = "lb"
 }
 
-variable "shape" {
-    description = "(Required) (Updatable) The total pre-provisioned bandwidth (ingress plus egress). "
-    type = string
-    default = "10Mbps"
+#variable "shape" {
+#    description = "(Required) (Updatable) The total pre-provisioned bandwidth (ingress plus egress). "
+#    type = string
+#    default = "10Mbps"
+#
+#    validation {
+#       condition = can(regex("^(10|100|400|8000)Mbps$", var.shape))
+#       error_message = "The total pre-provisioned bandwidth must be: 10Mbps, 100Mbps, 400Mbps or 8000Mbps."
+#    }   
+#}
+
+variable "min_bandwidth_mbps" {
+    description = "(Required) (Updatable) Bandwidth in Mbps that determines the minimum bandwidth (ingress plus egress)."
+    type = number
+    default = 10
 
     validation {
-       condition = can(regex("^(10|100|400|8000)Mbps$", var.shape))
-       error_message = "The total pre-provisioned bandwidth must be: 10Mbps, 100Mbps, 400Mbps or 8000Mbps."
-    }   
+        condition = (var.min_bandwidth_mbps >= 10 && var.min_bandwidth_mbps <= 8192)
+        error_message = "The minimum bandwidth must be between 10 (10Mbps) and 8192 (8Gbps)."
+    }
+}
+
+variable "max_bandwidth_mbps" {
+    description = "(Required) (Updatable) Bandwidth in Mbps that determines the maximum bandwidth (ingress plus egress)."
+    type = number
+    default = 10
+
+    validation {
+        condition = (var.max_bandwidth_mbps >= 10 && var.max_bandwidth_mbps <= 8192)
+        error_message = "The minimum bandwidth must be between 10 (10Mbps) and 8192 (8Gbps)."
+    }
 }
 
 variable "subnet_ids" {
@@ -46,33 +68,6 @@ variable "reserved_ip" {
     description = "(Optional) An array of reserved Ips. This reserved IP will not be deleted when load balancer is deleted."
     type = string
     default = null    
-}
-
-variable "backend_set" {
-    description = " Backend Set resource in OCI for Load Balancer service."
-
-    type = object({
-       
-       name = string
-       policy = string
-       
-       health_checker_protocol = string
-       health_checker_port = number
-       health_checker_interval = optional(number)
-       health_checker_return_code = optional(number)
-       health_checker_timeout = optional(number)       
-       health_checker_url = optional(string)       
-    })
-
-    validation {
-       condition = can(regex("^(ROUND_ROBIN|LEAST_CONNECTIONS|IP_HASH)$", var.backend_set.policy))
-       error_message = "The available policies for Load Balancer backend set are: ROUND_ROBIN, LEAST_CONNECTIONS or IP_HASH."
-    }
-
-    validation {
-       condition = can(regex("^(TCP|HTTP)$", var.backend_set.health_checker_protocol))
-       error_message = "The available policies for Load Balancer backend set are: ROUND_ROBIN, LEAST_CONNECTIONS or IP_HASH."
-    }
 }
 
 variable "listener" {
@@ -103,6 +98,37 @@ variable "ssl_listener" {
     default = null
 }
 
+
+variable "backend_set" {
+    description = " Backend Set resource in OCI for Load Balancer service."
+
+    type = object({
+       
+       name = string
+       policy = string
+       
+       health_checker_protocol = string
+       health_checker_port = optional(number)
+       health_checker_interval = optional(number)
+       health_checker_return_code = optional(number)
+       health_checker_timeout = optional(number)       
+       health_checker_url = optional(string)       
+    })
+    
+    validation {
+       condition = can(regex("^(ROUND_ROBIN|LEAST_CONNECTIONS|IP_HASH)$", var.backend_set.policy))
+       error_message = "The available policies for Load Balancer backend set are: ROUND_ROBIN, LEAST_CONNECTIONS or IP_HASH."
+    }
+
+/*
+    validation {
+       condition = can(regex("^(TCP|HTTP)$", var.backend_set.health_checker_protocol))
+       error_message = "The Health Checker Protocol Load Balancer backend set are: ROUND_ROBIN, LEAST_CONNECTIONS or IP_HASH."
+    }        
+*/
+}
+
+/*
 variable "backend" {
     description = "Backend resource in OCI for Load Balancer service."
 
@@ -117,6 +143,7 @@ variable "backend" {
 
     default = null
 }
+*/
 
 variable "force_https" {
     description = "Force Load Balancer HTTP redirect to HTTPS."

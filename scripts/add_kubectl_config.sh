@@ -3,10 +3,11 @@
 # scripts/add_kubectl_config.sh
 #
 #    Script que faz o setup das configurações do kubectl para acesso ao
-# cluster.
+# cluster (API SERVER).
 #
 
 OKE_OCID="$1"
+
 KUBECTL_CONFIG_HOME="$HOME/.kube"
 KUBECTL_CONFIG_FILE="$KUBECTL_CONFIG_HOME/config"
 

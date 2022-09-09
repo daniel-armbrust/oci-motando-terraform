@@ -10,6 +10,7 @@
 # NGINX A, B
 #-------------------
 
+/*
 module "gru_nginx-1-motando-prd" {
     source = "./modules/compute"
 
@@ -61,3 +62,4 @@ module "gru_nginx-2-motando-prd" {
     ssh_public_keys = file("./ssh_keys/nginx-motando-prd.pubkey")
     cloudinit_script = file("./scripts/orlinux_init.sh")
 }
+*/

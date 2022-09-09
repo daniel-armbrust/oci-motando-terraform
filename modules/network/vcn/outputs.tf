@@ -9,6 +9,10 @@ output "id" {
 
 output "dns_resolver_id" {
     value = data.oci_core_vcn_dns_resolver_association.vcn_dns_resolver_association.dns_resolver_id
+
+    depends_on = [
+        oci_core_vcn.vcn
+    ]
 }
 
 #
@@ -16,5 +20,5 @@ output "dns_resolver_id" {
 # https://registry.terraform.io/providers/oracle/oci/latest/docs/data-sources/core_vcn_dns_resolver_association
 #
 data "oci_core_vcn_dns_resolver_association" "vcn_dns_resolver_association" {        
-    vcn_id = oci_core_vcn.vcn.id
+    vcn_id = oci_core_vcn.vcn.id    
 }

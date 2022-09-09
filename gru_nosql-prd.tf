@@ -9,6 +9,7 @@
 #-------------------
 # Table: estado_cidade
 #-------------------
+/*
 module "gru_table-motando_brasil_estados_cidades" {
     source = "./modules/nosql/table"
    
@@ -33,6 +34,7 @@ module "gru_table-motando_brasil_estados_cidades" {
         EOS
     }
 }
+
 
 #-------------------
 # Table: moto
@@ -61,6 +63,7 @@ module "gru_table_motando_moto" {
         EOS
     }
 }
+*/
 
 #-------------------
 # Table: usuario
@@ -76,8 +79,7 @@ module "gru_table_motando_usuario" {
 
     nosql_table = {
         name = "motando_usuario",
-        read_units = "1",
-        write_units = "1",
+        on_demand_capacity = true,
         storage_gbs = "1",
         ddl_statement = <<EOS
            CREATE TABLE IF NOT EXISTS motando_usuario (
@@ -87,17 +89,16 @@ module "gru_table_motando_usuario" {
                 nome STRING,
                 senha STRING,                
                 admin BOOLEAN NOT NULL DEFAULT FALSE,
-                logista BOOLEAN NOT NULL DEFAULT FALSE,
+                lojista BOOLEAN NOT NULL DEFAULT FALSE,
                 perfil_img_url STRING,
                 banner_img_url STRING,
-                telefone ARRAY(STRING),
-                whatsapp ARRAY(STRING),
-                cidade STRING,
-                estado STRING,
+                telefone JSON,                
+                cidade STRING,                
+                estado STRING,                
                 estado_sigla STRING,
                 cep STRING,
                 endereco STRING,             
-                anuncio_id ARRAY(STRING),
+                anuncio_id ARRAY(INTEGER),
                 data_cadastro TIMESTAMP(0),
                 data_modificacao TIMESTAMP(0),
 	       PRIMARY KEY(id, email))
@@ -119,8 +120,7 @@ module "gru_table_motando_anuncio" {
 
     nosql_table = {
         name = "motando_anuncio",
-        read_units = "1",
-        write_units = "1",
+        on_demand_capacity = true,
         storage_gbs = "1",
         ddl_statement = <<EOS
            CREATE TABLE IF NOT EXISTS motando_anuncio (

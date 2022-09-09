@@ -65,5 +65,7 @@ module "gru_oke-nodepool-1_prd" {
     ocpus = "2"
     boot_volume_gbs = 100
     ssh_public_key = file("./ssh_keys/oke-node-prd.pubkey")    
+
+    # TODO: script to change linux timezone
     #cloudinit_script = file("./scripts/orlinux_init.sh")
 }

@@ -15,12 +15,8 @@ module "dyngrp_motando" {
     
     tenancy_id = var.tenancy_id
 
-    name = "motando-dyngrp-funcs"    
+    name = "motando-dyngrp-oke"    
     description = "Grupo dinâmico que concede acesso ao OKE."
 
-    matching_rule = <<EOS
-       ANY {        
-         resource.compartment.id = '${module.cmp_motando-oke.id}'
-       }
-    EOS
+    matching_rule = "All {instance.compartment.id = '${module.cmp_motando-oke.id}'}"
 }

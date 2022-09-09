@@ -23,6 +23,22 @@ module "gru_bucket-estado_cidade_prd" {
 }
 
 #-------------------
+# Moto
+#-------------------
+module "gru_bucket-moto_prd" {
+    source = "./modules/objectstorage"
+   
+    providers = {
+       oci = oci.gru
+    }
+
+    compartment_id = module.cmp_motando.id
+    bucket_name = "motando_moto"
+    bucket_namespace = local.gru_objectstorage_ns        
+    access_type = "NoPublicAccess"   
+}
+
+#-------------------
 # Anuncio
 #-------------------
 module "gru_bucket-anuncio_prd" {

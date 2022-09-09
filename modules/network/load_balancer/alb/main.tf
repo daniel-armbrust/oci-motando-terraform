@@ -9,10 +9,21 @@ terraform {
 
 resource "oci_load_balancer_load_balancer" "load_balancer" {  
    compartment_id = var.compartment_id
-   display_name = var.display_name
-   shape = var.shape
+   display_name = var.display_name   
    subnet_ids = var.subnet_ids
-   is_private = var.is_private       
+   is_private = var.is_private    
+
+   shape = "flexible"
+
+   shape_details {
+      minimum_bandwidth_in_mbps = var.min_bandwidth_mbps
+      maximum_bandwidth_in_mbps = var.max_bandwidth_mbps
+   }   
+
+   # TODO:
+   #reserved_ips {     
+   #    id = var.reserved_ip
+   #}
 }
 
 resource "oci_load_balancer_backend_set" "backend_set" {
@@ -96,10 +107,33 @@ resource "oci_load_balancer_rule_set" "force_ssl_rule_set" {
     }    
 }
 
+
+/*
+resource "oci_load_balancer_backend_set" "backend_set" {
+   count = var.backend_set != null ? 1 : 0
+
+   load_balancer_id = oci_load_balancer_load_balancer.load_balancer.id
+     
+   name = var.backend_set[count.index].name     
+   policy = var.backend_set[count.index].policy
+
+   health_checker {
+       protocol = var.backend_set[count.index].health_checker_protocol
+       interval_ms = var.backend_set[count.index].health_checker_interval
+       port = var.backend_set[count.index].health_checker_port
+       return_code = var.backend_set[count.index].health_checker_return_code
+       timeout_in_millis = var.backend_set[count.index].health_checker_timeout
+       url_path = var.backend_set[count.index].health_checker_url
+   }
+}
+*/
+
+
+/*
 resource "oci_load_balancer_backend" "backend" {   
     count = length(var.backend)     
 
-    backendset_name = oci_load_balancer_backend_set.backend_set.name
+    backendset_name = oci_load_balancer_backend_set.backend_set[count.index].name
     load_balancer_id = oci_load_balancer_load_balancer.load_balancer.id 
 
     ip_address = var.backend[count.index].ip_address
@@ -110,3 +144,4 @@ resource "oci_load_balancer_backend" "backend" {
     offline = var.backend[count.index].offline
     weight = var.backend[count.index].weight
 }
+*/

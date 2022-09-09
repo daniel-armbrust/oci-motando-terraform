@@ -10,6 +10,7 @@
 # Certificate
 #-------------------
 
+
 module "gru_cert_albpub-motando_prd" { 
    source = "./modules/network/load_balancer/certificate"
 
@@ -39,19 +40,12 @@ module "gru_albpub-motando_prd" {
     display_name = "albpub-motando_prd"
 
     compartment_id = module.cmp_motando-network.id        
-    subnet_ids = [module.gru_subpub-frontend_vcn-prd.id]
+    subnet_ids = [module.gru_subpub-frontend_vcn-prd.id]   
+    
+    min_bandwidth_mbps = 10
+    max_bandwidth_mbps = 10
 
-    backend_set = {        
-        name = "bckset-1_albpub-motando_prd"
-
-        policy = "ROUND_ROBIN"
-
-        health_checker_protocol = "HTTP"
-        health_checker_port = 80
-        health_checker_timeout = 10000
-        health_checker_return_code = 200
-        health_checker_url = "/"
-    }    
+    force_https = true
 
     listener = [
         {
@@ -71,9 +65,32 @@ module "gru_albpub-motando_prd" {
             certificate_name = module.gru_cert_albpub-motando_prd.name
             verify_peer_certificate = false
         }
-    ]
+    ]          
+
+    backend_set = {        
+        name = "bckset-1_albpub-motando_prd"
+        policy = "ROUND_ROBIN"
+        
+        health_checker_protocol = "HTTP"
+        health_checker_port = 30080
+        health_checker_timeout = 10000
+        health_checker_return_code = 200
+        health_checker_url = "/"
+    }
+
+  /*
     
-    force_https = true
+    backend_set = {        
+        name = "bckset-1_albpub-motando_prd"
+
+        policy = "ROUND_ROBIN"
+
+        health_checker_protocol = "HTTP"
+        health_checker_port = 80
+        health_checker_timeout = 10000
+        health_checker_return_code = 200
+        health_checker_url = "/"
+    }    
 
     backend = [
        {          
@@ -84,5 +101,6 @@ module "gru_albpub-motando_prd" {
           ip_address = module.gru_nginx-2-motando-prd.private_ip
           port = 80
        }
-    ]
+    ]   
+  */  
 }

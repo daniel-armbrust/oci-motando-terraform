@@ -24,6 +24,7 @@ module "cmp_motando" {
 
 #-------------------
 # motando/network
+# motando/network/dns
 #-------------------
 
 module "cmp_motando-network" {
@@ -36,6 +37,18 @@ module "cmp_motando-network" {
     name = "cmp-network"         
     description = "Compartimento para hospedar os recursos de redes da aplicação Motando."
     parent_compartment_id = module.cmp_motando.id
+}
+
+module "cmp_motando-network-dns" {
+    source = "./modules/iam/compartment"
+
+    providers = {
+       oci = oci.home_region
+    }
+
+    name = "cmp-dns"         
+    description = "Compartimento para hospedar os recursos de DNS aplicação Motando."
+    parent_compartment_id = module.cmp_motando-network.id
 }
 
 #-------------------
@@ -83,5 +96,21 @@ module "cmp_motando-oke" {
 
     name = "cmp-oke"         
     description = "Compartimento para hospedar Kubernetes clusters da aplicação Motando."
+    parent_compartment_id = module.cmp_motando.id
+}
+
+#-------------------
+# motando/api
+#-------------------
+
+module "cmp_motando-api" {
+    source = "./modules/iam/compartment"
+
+    providers = {
+       oci = oci.home_region
+    }
+
+    name = "cmp-api"         
+    description = "Compartimento para hospedar APIs aplicação Motando."
     parent_compartment_id = module.cmp_motando.id
 }

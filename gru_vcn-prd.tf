@@ -167,6 +167,14 @@ module "gru_rtb_subprv-backend_vcn-prd" {
           network_entity_id = module.gru_ngw_vcn-prd.id
           description = "Route through NAT Gateway"
         }
+
+        # TODO:
+        #{
+        #  destination = local.gru_all_oci_services
+        #  destination_type = "CIDR_BLOCK"
+        #  network_entity_id = module.gru_sgw_vcn-prd.id
+        #  description = "Route through Service Gateway"
+        #}
     ]
 }
 

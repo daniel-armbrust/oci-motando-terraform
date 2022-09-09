@@ -9,6 +9,10 @@ data "external" "get_my_public_ip" {
     program = ["bash", "./scripts/get_my_publicip.sh"]
 }
 
+data "external" "get_secret_key" {
+    program = ["bash", "./scripts/get_secret_key.sh"]
+}
+
 #
 # https://registry.terraform.io/providers/hashicorp/oci/latest/docs/data-sources/core_services
 #

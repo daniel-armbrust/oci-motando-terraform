@@ -48,12 +48,7 @@ variable "kubernetes_version" {
     #
     description = "(Required) (Updatable) The version of Kubernetes to install into the cluster masters."
     type = string
-    default = "v1.23.4"
-
-    validation {
-       condition = can(regex("^(v1.20.8|v1.20.11|v1.21.5|v1.22.5|v1.23.4)$", var.kubernetes_version))
-       error_message = "Incompatible Kubernetes version."
-    }   
+    default = "v1.24.1"
 }
   
 variable "dashboard_enabled" {

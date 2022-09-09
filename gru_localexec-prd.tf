@@ -6,31 +6,7 @@
 # PRODUCTION
 #-------------------------------
 
-resource "null_resource" "gru_bucket_data-estado_cidade_prd" {        
-
-    triggers = {
-       bucket_name = module.gru_bucket-estado_cidade_prd.name
-    }
-
-    provisioner "local-exec" {
-        command = "./add_bucket_data.sh '${module.gru_bucket-estado_cidade_prd.name}' '../data/json/estado_cidade/'"
-        working_dir = "./scripts"
-        on_failure = fail
-    }     
-
-    provisioner "local-exec" {
-        when = destroy
-        command = "./del_bucket_data.sh '${self.triggers.bucket_name}'"
-        working_dir = "./scripts"
-        on_failure = fail
-    }     
-
-    depends_on = [       
-        module.gru_bucket-estado_cidade_prd
-    ]  
-}
-
-resource "null_resource" "gru_oke-kubectl-setup_prd" {
+resource "null_resource" "gru_oke-kubectl-config_prd" {
  
     provisioner "local-exec" {
         command = "./add_kubectl_config.sh '${module.gru_oke-cluster_prd.id}'"
@@ -47,5 +23,47 @@ resource "null_resource" "gru_oke-kubectl-setup_prd" {
 
     depends_on = [       
         module.gru_oke-cluster_prd
+    ]  
+}
+
+resource "null_resource" "gru_oke-config-map_prd" {
+ 
+    provisioner "local-exec" {
+        command = "./add_configmap.sh '${local.gru_objectstorage_ns}' '${module.cmp_motando-nosql.id}' '${module.gru_vault.crypto_endpoint}' '${module.gru_motando-aes-mke.id}' '${module.gru_motando_csrf-secret-key.id}'"
+        working_dir = "./scripts"
+        on_failure = fail
+    }     
+
+    provisioner "local-exec" {
+        when = destroy
+        command = "./del_configmap.sh"
+        working_dir = "./scripts"
+        on_failure = continue
+    }     
+
+    depends_on = [       
+        module.gru_oke-cluster_prd,
+        null_resource.gru_oke-kubectl-config_prd
+    ]  
+}
+
+resource "null_resource" "gru_oke-secret_prd" {
+ 
+    provisioner "local-exec" {
+        command = "./add_secret.sh '${var.ocir_user}' '${var.ocir_auth_token}' '${local.gru_objectstorage_ns}'"
+        working_dir = "./scripts"
+        on_failure = fail
+    }     
+
+    provisioner "local-exec" {
+        when = destroy
+        command = "./del_secret.sh"
+        working_dir = "./scripts"
+        on_failure = continue
+    }     
+
+    depends_on = [       
+        module.gru_oke-cluster_prd,
+        null_resource.gru_oke-kubectl-config_prd
     ]  
 }
