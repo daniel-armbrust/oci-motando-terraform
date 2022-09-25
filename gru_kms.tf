@@ -15,6 +15,24 @@ module "gru_vault" {
     prevent_destroy = true    
 }
 
+module "gru_motando-rsa-mke" {
+    source = "./modules/kms/key"
+   
+    providers = {
+       oci = oci.gru
+    }
+
+    compartment_id = module.cmp_motando.id
+    display_name = "gru_motando-rsa-mke"
+
+    key_algorithm = "RSA"
+    key_length = 256
+    protection_mode = "SOFTWARE"
+    mgmt_endpoint = module.gru_vault.mgmt_endpoint
+
+    prevent_destroy = true  
+}
+
 module "gru_motando-aes-mke" {
     source = "./modules/kms/key"
    
