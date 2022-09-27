@@ -18,6 +18,12 @@ variable "bucket_namespace" {
     type = string
 }
 
+variable "events_enable" {
+    description = "(Optional) (Updatable) Whether or not events are emitted for object state changes in this bucket."
+    type = bool
+    default = false
+}
+
 variable "access_type" {
     description = "(Optional) (Updatable) The type of public access enabled on this bucket."
     type = string

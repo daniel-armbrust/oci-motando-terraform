@@ -10,4 +10,5 @@ resource "oci_objectstorage_bucket" "objectstorage_bucket" {
     access_type = var.access_type
     storage_tier = var.storage_tier
     versioning = var.versioning
+    object_events_enabled = var.events_enable
 }

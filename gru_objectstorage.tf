@@ -67,6 +67,22 @@ module "gru_bucket-anuncio-tmp_prd" {
     bucket_name = "motando_anuncio_tmp"
     bucket_namespace = local.gru_objectstorage_ns        
     access_type = "NoPublicAccess"
+    events_enable = true
+}
+
+module "gru_bucket-anuncio-imgtmp_prd" {
+    source = "./modules/objectstorage"
+   
+    providers = {
+       oci = oci.gru
+    }
+
+    # TODO: implementar Lifecycle Rule para excluír objetos.
+
+    compartment_id = module.cmp_motando.id
+    bucket_name = "motando_anuncio_imgtmp"
+    bucket_namespace = local.gru_objectstorage_ns        
+    access_type = "NoPublicAccess"
 }
 
 #-------------------

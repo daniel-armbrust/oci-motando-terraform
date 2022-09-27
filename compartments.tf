@@ -100,6 +100,22 @@ module "cmp_motando-oke" {
 }
 
 #-------------------
+# motando/functions
+#-------------------
+
+module "cmp_motando-functions" {
+    source = "./modules/iam/compartment"
+
+    providers = {
+       oci = oci.home_region
+    }
+
+    name = "cmp-functions"         
+    description = "Compartimento para hospedar Functions da aplicação Motando."
+    parent_compartment_id = module.cmp_motando.id
+}
+
+#-------------------
 # motando/api
 #-------------------
 
