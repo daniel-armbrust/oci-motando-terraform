@@ -6,3 +6,7 @@
 output "id" {
     value = join("", oci_nosql_table.nosql_table.*.id, oci_nosql_table.nosql_table_on_demand.*.id)
 }
+
+output "name" {
+    value = join("", oci_nosql_table.nosql_table.*.name, oci_nosql_table.nosql_table_on_demand.*.name)
+}

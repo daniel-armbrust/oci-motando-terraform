@@ -6,6 +6,7 @@
 # Application
 #--------------------
 
+/*
 module "gru_appl-fn_prd" {
     source = "./modules/functions/application"
 
@@ -17,14 +18,16 @@ module "gru_appl-fn_prd" {
     display_name = "motando-appl-fn_prd"
 
     app_config = {
-        "NOSQL_CMP" = module.cmp_motando-nosql.id,      
-        "OBJSTR_NAMESPACE" = local.gru_objectstorage_ns,
-        "ANUNCIO_BUCKET_NAME" = module.gru_bucket-anuncio_prd.name,
-        "ANUNCIO_TMP_BUCKET_NAME" = module.gru_bucket-anuncio-tmp_prd.name,
-        "IMAGEM_TMP_BUCKET_NAME" = module.gru_bucket-anuncio-imgtmp_prd.name
+        "MOTANDO_API_HOSTNAME" = "api.ocibook.local",
+        "NOSQL_CMP" = module.cmp_motando-nosql.id,   
+        "MOTANDO_ANUNCIO_TABLE_NAME" = module.gru_table_motando_anuncio.name,          
+        "MOTANDO_ANUNCIO_BUCKET_NAME" = module.gru_bucket-anuncio_prd.name,
+        "MOTANDO_ANUNCIO_TMP_BUCKET_NAME" = module.gru_bucket-anuncio-tmp_prd.name,
+        "MOTANDO_IMG_TMP_BUCKET_NAME" = module.gru_bucket-anuncio-imgtmp_prd.name
     }
 
     subnet_ids = [
         module.gru_subprv-backend_vcn-prd.id
     ]
 }
+*/

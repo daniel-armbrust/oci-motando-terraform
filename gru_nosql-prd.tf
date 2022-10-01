@@ -94,7 +94,9 @@ module "gru_table_motando_anuncio" {
                 refrigeracao STRING,
                 estilo STRING,
                 origem STRING,
-                img_lista ARRAY(STRING),
+                publicado BOOLEAN DEFAULT FALSE,
+                vendido BOOLEAN DEFAULT FALSE,
+                img_lista JSON,
                 data_cadastro TIMESTAMP(0), 
                 data_modificacao TIMESTAMP(0),
            PRIMARY KEY(id))
