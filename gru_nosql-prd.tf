@@ -41,9 +41,7 @@ module "gru_table_motando_usuario" {
                 endereco STRING DEFAULT '',
                 bairro STRING DEFAULT '',
                 complemento STRING DEFAULT '',
-                anuncio_id ARRAY(INTEGER),
-                data_cadastro TIMESTAMP(0),
-                data_modificacao TIMESTAMP(0),
+                anuncio_id ARRAY(INTEGER),                
 	       PRIMARY KEY(id))
         EOS
     }
@@ -96,9 +94,7 @@ module "gru_table_motando_anuncio" {
                 origem STRING,
                 publicado BOOLEAN DEFAULT FALSE,
                 vendido BOOLEAN DEFAULT FALSE,
-                img_lista JSON,
-                data_cadastro TIMESTAMP(0), 
-                data_modificacao TIMESTAMP(0),
+                img_lista JSON,              
            PRIMARY KEY(id))
         EOS
     }
